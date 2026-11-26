@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<!-- Draxi biped, urdf_v1. Generated 2026-11-26 from Raven's Fusion export draxie.step (15:30 UTC).
+     Frames: x forward, y left, z up, metres. Every link frame sits on its joint axis and is aligned with base_link at the zero pose.
+     Zero pose = the CAD pose (thigh vertical, shin horizontal forward, neck link horizontal).
+     Knee is a parallelogram pushrod (crank 25 / lever 25 / rod 90 / thigh 90): knee angle = knee motor angle, 1:1.
+     knee_crank_* and pushrod_* are mimic joints for display only. Masses: see MASSES.md. -->
+<robot name="draxi">
+  <link name="base_link">
+    <inertial><origin xyz="-0.0196517 0.000100607 0.0161897" rpy="0 0 0"/><mass value="1.9598"/><inertia ixx="2.5655e-03" ixy="-5.6714e-06" ixz="6.6033e-06" iyy="6.8610e-03" iyz="3.1890e-06" izz="8.1766e-03"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/base_link.dae"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/collision/base_link.stl"/></geometry></collision>
+  </link>
+  <link name="hip_yaw_L">
+    <inertial><origin xyz="0.0581804 -1.01133e-07 0.0051248" rpy="0 0 0"/><mass value="0.5028"/><inertia ixx="4.4639e-04" ixy="-2.6348e-10" ixz="1.5450e-04" iyy="9.4864e-04" iyz="-1.1479e-08" izz="8.3274e-04"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/hip_yaw_L.dae"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/collision/hip_yaw_L.stl"/></geometry></collision>
+  </link>
+  <link name="hip_roll_L">
+    <inertial><origin xyz="-0.000339695 0.00342029 -4.68613e-05" rpy="0 0 0"/><mass value="0.5270"/><inertia ixx="3.1509e-04" ixy="-6.2437e-07" ixz="-7.5047e-08" iyy="5.2298e-04" iyz="4.6012e-07" izz="4.2529e-04"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/hip_roll_L.dae"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/collision/hip_roll_L.stl"/></geometry></collision>
+  </link>
+  <link name="thigh_L">
+    <inertial><origin xyz="-1.22297e-05 0.070727 -0.00901923" rpy="0 0 0"/><mass value="0.5472"/><inertia ixx="7.8130e-04" ixy="1.0395e-07" ixz="1.4380e-07" iyy="7.5782e-04" iyz="-1.2717e-04" izz="4.0776e-04"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/thigh_L.dae"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/collision/thigh_L.stl"/></geometry></collision>
+  </link>
+  <link name="shin_L">
+    <inertial><origin xyz="0.088326 -0.000282063 8.07046e-05" rpy="0 0 0"/><mass value="0.2632"/><inertia ixx="1.1241e-04" ixy="8.0050e-06" ixz="-3.4500e-07" iyy="2.3946e-04" iyz="-3.2486e-07" izz="2.6823e-04"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/shin_L.dae"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/collision/shin_L.stl"/></geometry></collision>
+  </link>
+  <link name="foot_L">
+    <inertial><origin xyz="0.0133794 0.00120577 -0.0276265" rpy="0 0 0"/><mass value="0.0844"/><inertia ixx="8.8867e-05" ixy="-5.8610e-07" ixz="2.0082e-05" iyy="1.1635e-04" iyz="1.2102e-06" izz="1.2716e-04"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/foot_L.dae"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/collision/foot_L.stl"/></geometry></collision>
+  </link>
+  <link name="knee_crank_L">
+    <inertial><origin xyz="-0.00372982 2.2446e-05 -4.09845e-10" rpy="0 0 0"/><mass value="0.0097"/><inertia ixx="8.9523e-07" ixy="-4.7084e-08" ixz="-6.7502e-14" iyy="2.3516e-06" iyz="-5.1738e-15" izz="1.5801e-06"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/knee_crank_L.dae"/></geometry></visual>
+  </link>
+  <link name="pushrod_L">
+    <inertial><origin xyz="2.03928e-17 0.000313384 -0.045" rpy="0 0 0"/><mass value="0.0806"/><inertia ixx="9.4966e-05" ixy="-4.6711e-21" ixz="4.1437e-11" iyy="9.5386e-05" iyz="3.0176e-21" izz="1.7943e-06"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/pushrod_L.dae"/></geometry></visual>
+  </link>
+  <link name="sole_L">
+  </link>
+  <link name="hip_yaw_R">
+    <inertial><origin xyz="0.0581804 1.07519e-07 0.00512479" rpy="0 0 0"/><mass value="0.5028"/><inertia ixx="4.4639e-04" ixy="1.5174e-10" ixz="1.5450e-04" iyy="9.4864e-04" iyz="1.1496e-08" izz="8.3274e-04"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/hip_yaw_R.dae"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/collision/hip_yaw_R.stl"/></geometry></collision>
+  </link>
+  <link name="hip_roll_R">
+    <inertial><origin xyz="-0.000339702 -0.00342029 -4.68564e-05" rpy="0 0 0"/><mass value="0.5270"/><inertia ixx="3.1509e-04" ixy="6.2445e-07" ixz="-7.5050e-08" iyy="5.2298e-04" iyz="-4.6017e-07" izz="4.2529e-04"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/hip_roll_R.dae"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/collision/hip_roll_R.stl"/></geometry></collision>
+  </link>
+  <link name="thigh_R">
+    <inertial><origin xyz="-1.22369e-05 -0.070727 -0.00901923" rpy="0 0 0"/><mass value="0.5472"/><inertia ixx="7.8130e-04" ixy="-1.0406e-07" ixz="1.4383e-07" iyy="7.5782e-04" iyz="1.2717e-04" izz="4.0776e-04"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/thigh_R.dae"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/collision/thigh_R.stl"/></geometry></collision>
+  </link>
+  <link name="shin_R">
+    <inertial><origin xyz="0.088326 0.000282058 8.0704e-05" rpy="0 0 0"/><mass value="0.2632"/><inertia ixx="1.1241e-04" ixy="-8.0050e-06" ixz="-3.4500e-07" iyy="2.3946e-04" iyz="3.2486e-07" izz="2.6823e-04"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/shin_R.dae"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/collision/shin_R.stl"/></geometry></collision>
+  </link>
+  <link name="foot_R">
+    <inertial><origin xyz="0.0133794 -0.00120577 -0.0276265" rpy="0 0 0"/><mass value="0.0844"/><inertia ixx="8.8867e-05" ixy="5.8610e-07" ixz="2.0082e-05" iyy="1.1635e-04" iyz="-1.2102e-06" izz="1.2716e-04"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/foot_R.dae"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/collision/foot_R.stl"/></geometry></collision>
+  </link>
+  <link name="knee_crank_R">
+    <inertial><origin xyz="-0.00372982 -2.2446e-05 -4.09845e-10" rpy="0 0 0"/><mass value="0.0097"/><inertia ixx="8.9523e-07" ixy="4.7084e-08" ixz="-6.7502e-14" iyy="2.3516e-06" iyz="5.1738e-15" izz="1.5801e-06"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/knee_crank_R.dae"/></geometry></visual>
+  </link>
+  <link name="pushrod_R">
+    <inertial><origin xyz="2.03928e-17 -0.000313384 -0.045" rpy="0 0 0"/><mass value="0.0806"/><inertia ixx="9.4966e-05" ixy="4.6690e-21" ixz="4.1437e-11" iyy="9.5386e-05" iyz="5.3204e-21" izz="1.7943e-06"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/pushrod_R.dae"/></geometry></visual>
+  </link>
+  <link name="sole_R">
+  </link>
+  <link name="neck_yaw">
+    <inertial><origin xyz="-2.80063e-06 -0.00168892 0.0296704" rpy="0 0 0"/><mass value="0.2249"/><inertia ixx="1.1470e-04" ixy="2.2130e-08" ixz="-9.4722e-08" iyy="9.0994e-05" iyz="5.9722e-07" izz="1.0476e-04"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/neck_yaw.dae"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/collision/neck_yaw.stl"/></geometry></collision>
+  </link>
+  <link name="neck_link">
+    <inertial><origin xyz="0.03 0.00171797 -3.60278e-17" rpy="0 0 0"/><mass value="0.0652"/><inertia ixx="7.3585e-05" ixy="2.8391e-21" ixz="6.5483e-20" iyy="6.6990e-05" iyz="2.1914e-20" izz="1.2068e-04"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/neck_link.dae"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/collision/neck_link.stl"/></geometry></collision>
+  </link>
+  <link name="neck_nod">
+    <inertial><origin xyz="0.00393668 -0.00172834 9.15234e-05" rpy="0 0 0"/><mass value="0.2323"/><inertia ixx="1.0550e-04" ixy="-1.5592e-06" ixz="-1.2509e-08" iyy="1.0355e-04" iyz="-3.2428e-07" izz="1.2599e-04"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/neck_nod.dae"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/collision/neck_nod.stl"/></geometry></collision>
+  </link>
+  <link name="head">
+    <inertial><origin xyz="0.0373608 4.1628e-05 -1.23227e-06" rpy="0 0 0"/><mass value="0.5106"/><inertia ixx="4.1980e-04" ixy="-2.4792e-08" ixz="1.3285e-08" iyy="8.6887e-04" iyz="-9.6215e-08" izz="8.0760e-04"/></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/visual/head.dae"/></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="meshes/collision/head.stl"/></geometry></collision>
+  </link>
+  <joint name="hip_yaw_L" type="revolute"><parent link="base_link"/><child link="hip_yaw_L"/><origin xyz="0 0.048 -0.062" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/><limit lower="-0.5236" upper="0.5236" effort="5.5" velocity="50"/>
+  </joint>
+  <joint name="hip_roll_L" type="revolute"><parent link="hip_yaw_L"/><child link="hip_roll_L"/><origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/><limit lower="-0.3491" upper="0.3491" effort="17" velocity="44"/>
+  </joint>
+  <joint name="hip_pitch_L" type="revolute"><parent link="hip_roll_L"/><child link="thigh_L"/><origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/><limit lower="-1.0821" upper="1.5708" effort="17" velocity="44"/>
+  </joint>
+  <joint name="knee_L" type="revolute"><parent link="thigh_L"/><child link="shin_L"/><origin xyz="0 0.044 -0.09" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/><limit lower="-1.3963" upper="0.2618" effort="17" velocity="44"/>
+  </joint>
+  <joint name="ankle_L" type="revolute"><parent link="shin_L"/><child link="foot_L"/><origin xyz="0.1 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/><limit lower="-1.0472" upper="0.5236" effort="5.5" velocity="50"/>
+  </joint>
+  <joint name="knee_crank_L" type="revolute"><parent link="thigh_L"/><child link="knee_crank_L"/><origin xyz="0 0.0526 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/><limit lower="-1.3963" upper="0.2618" effort="17" velocity="44"/>
+    <mimic joint="knee_L" multiplier="1.0" offset="0"/>
+  </joint>
+  <joint name="pushrod_L" type="revolute"><parent link="knee_crank_L"/><child link="pushrod_L"/><origin xyz="-0.025 -0.0098 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/><limit lower="-0.2618" upper="1.3963" effort="17" velocity="44"/>
+    <mimic joint="knee_L" multiplier="-1.0" offset="0"/>
+  </joint>
+  <joint name="sole_L" type="fixed"><parent link="foot_L"/><child link="sole_L"/><origin xyz="0.0272 0.0007 -0.051" rpy="0 0 0"/>
+  </joint>
+  <joint name="hip_yaw_R" type="revolute"><parent link="base_link"/><child link="hip_yaw_R"/><origin xyz="0 -0.048 -0.062" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/><limit lower="-0.5236" upper="0.5236" effort="5.5" velocity="50"/>
+  </joint>
+  <joint name="hip_roll_R" type="revolute"><parent link="hip_yaw_R"/><child link="hip_roll_R"/><origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/><limit lower="-0.3491" upper="0.3491" effort="17" velocity="44"/>
+  </joint>
+  <joint name="hip_pitch_R" type="revolute"><parent link="hip_roll_R"/><child link="thigh_R"/><origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/><limit lower="-1.0821" upper="1.5708" effort="17" velocity="44"/>
+  </joint>
+  <joint name="knee_R" type="revolute"><parent link="thigh_R"/><child link="shin_R"/><origin xyz="0 -0.044 -0.09" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/><limit lower="-1.3963" upper="0.2618" effort="17" velocity="44"/>
+  </joint>
+  <joint name="ankle_R" type="revolute"><parent link="shin_R"/><child link="foot_R"/><origin xyz="0.1 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/><limit lower="-1.0472" upper="0.5236" effort="5.5" velocity="50"/>
+  </joint>
+  <joint name="knee_crank_R" type="revolute"><parent link="thigh_R"/><child link="knee_crank_R"/><origin xyz="0 -0.0526 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/><limit lower="-1.3963" upper="0.2618" effort="17" velocity="44"/>
+    <mimic joint="knee_R" multiplier="1.0" offset="0"/>
+  </joint>
+  <joint name="pushrod_R" type="revolute"><parent link="knee_crank_R"/><child link="pushrod_R"/><origin xyz="-0.025 0.0098 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/><limit lower="-0.2618" upper="1.3963" effort="17" velocity="44"/>
+    <mimic joint="knee_R" multiplier="-1.0" offset="0"/>
+  </joint>
+  <joint name="sole_R" type="fixed"><parent link="foot_R"/><child link="sole_R"/><origin xyz="0.0272 -0.0007 -0.051" rpy="0 0 0"/>
+  </joint>
+  <joint name="neck_yaw" type="revolute"><parent link="base_link"/><child link="neck_yaw"/><origin xyz="0.08 0 0.035" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/><limit lower="-1.0472" upper="1.0472" effort="5.5" velocity="50"/>
+  </joint>
+  <joint name="neck_pitch" type="revolute"><parent link="neck_yaw"/><child link="neck_link"/><origin xyz="0 0 0.032" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/><limit lower="-1.5708" upper="0.5236" effort="5.5" velocity="50"/>
+  </joint>
+  <joint name="neck_nod" type="revolute"><parent link="neck_link"/><child link="neck_nod"/><origin xyz="0.06 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/><limit lower="-1.0472" upper="1.5708" effort="5.5" velocity="50"/>
+  </joint>
+  <joint name="head_roll" type="revolute"><parent link="neck_nod"/><child link="head"/><origin xyz="0.0415 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/><limit lower="-0.6109" upper="0.6109" effort="5.5" velocity="50"/>
+  </joint>
+</robot>

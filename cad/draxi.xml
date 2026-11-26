@@ -1,0 +1,378 @@
+<mujoco model="draxi">
+  <!-- Draxi urdf_v1, generated from draxie.step 2026-11-26. Same kinematics/masses as draxi.urdf.
+       Knee crank + pushrod follow the knee through joint equalities (parallelogram, 1:1). -->
+  <compiler angle="degree" meshdir="meshes"/>
+  <option timestep="0.002" integrator="implicitfast"/>
+  <default>
+    <geom contype="0" conaffinity="0"/>
+    <default class="visual"><geom type="mesh" group="2" density="0"/></default>
+    <default class="collision"><geom type="mesh" group="3" contype="1" conaffinity="0" density="0" friction="0.9 0.02 0.001" rgba="0.8 0.3 0.3 0.3"/></default>
+  </default>
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" rgb1=".85 .87 .9" rgb2=".75 .77 .8" width="300" height="300"/>
+    <material name="grid" texture="grid" texrepeat="8 8"/>
+    <material name="printed" rgba="0.36 0.4 0.46 1"/>
+    <material name="motor" rgba="0.13 0.13 0.14 1"/>
+    <material name="steel" rgba="0.72 0.72 0.74 1"/>
+    <material name="alu" rgba="0.8 0.81 0.83 1"/>
+    <material name="battery" rgba="0.85 0.5 0.15 1"/>
+    <mesh name="base_link_alu" file="mjcf/base_link_alu.stl"/>
+    <mesh name="base_link_battery" file="mjcf/base_link_battery.stl"/>
+    <mesh name="base_link_col0" file="mjcf/base_link_col0.stl"/>
+    <mesh name="base_link_col1" file="mjcf/base_link_col1.stl"/>
+    <mesh name="base_link_col2" file="mjcf/base_link_col2.stl"/>
+    <mesh name="base_link_col3" file="mjcf/base_link_col3.stl"/>
+    <mesh name="base_link_col4" file="mjcf/base_link_col4.stl"/>
+    <mesh name="base_link_col5" file="mjcf/base_link_col5.stl"/>
+    <mesh name="base_link_col6" file="mjcf/base_link_col6.stl"/>
+    <mesh name="base_link_col7" file="mjcf/base_link_col7.stl"/>
+    <mesh name="base_link_col8" file="mjcf/base_link_col8.stl"/>
+    <mesh name="base_link_col9" file="mjcf/base_link_col9.stl"/>
+    <mesh name="base_link_printed" file="mjcf/base_link_printed.stl"/>
+    <mesh name="base_link_steel" file="mjcf/base_link_steel.stl"/>
+    <mesh name="foot_L_col0" file="mjcf/foot_L_col0.stl"/>
+    <mesh name="foot_L_col1" file="mjcf/foot_L_col1.stl"/>
+    <mesh name="foot_L_col2" file="mjcf/foot_L_col2.stl"/>
+    <mesh name="foot_L_col3" file="mjcf/foot_L_col3.stl"/>
+    <mesh name="foot_L_col4" file="mjcf/foot_L_col4.stl"/>
+    <mesh name="foot_L_col5" file="mjcf/foot_L_col5.stl"/>
+    <mesh name="foot_L_printed" file="mjcf/foot_L_printed.stl"/>
+    <mesh name="foot_L_steel" file="mjcf/foot_L_steel.stl"/>
+    <mesh name="foot_R_col0" file="mjcf/foot_R_col0.stl"/>
+    <mesh name="foot_R_col1" file="mjcf/foot_R_col1.stl"/>
+    <mesh name="foot_R_col2" file="mjcf/foot_R_col2.stl"/>
+    <mesh name="foot_R_col3" file="mjcf/foot_R_col3.stl"/>
+    <mesh name="foot_R_col4" file="mjcf/foot_R_col4.stl"/>
+    <mesh name="foot_R_col5" file="mjcf/foot_R_col5.stl"/>
+    <mesh name="foot_R_printed" file="mjcf/foot_R_printed.stl"/>
+    <mesh name="foot_R_steel" file="mjcf/foot_R_steel.stl"/>
+    <mesh name="head_col0" file="mjcf/head_col0.stl"/>
+    <mesh name="head_col1" file="mjcf/head_col1.stl"/>
+    <mesh name="head_col2" file="mjcf/head_col2.stl"/>
+    <mesh name="head_col3" file="mjcf/head_col3.stl"/>
+    <mesh name="head_col4" file="mjcf/head_col4.stl"/>
+    <mesh name="head_col5" file="mjcf/head_col5.stl"/>
+    <mesh name="head_col6" file="mjcf/head_col6.stl"/>
+    <mesh name="head_printed" file="mjcf/head_printed.stl"/>
+    <mesh name="head_steel" file="mjcf/head_steel.stl"/>
+    <mesh name="hip_roll_L_col0" file="mjcf/hip_roll_L_col0.stl"/>
+    <mesh name="hip_roll_L_col1" file="mjcf/hip_roll_L_col1.stl"/>
+    <mesh name="hip_roll_L_printed" file="mjcf/hip_roll_L_printed.stl"/>
+    <mesh name="hip_roll_L_steel" file="mjcf/hip_roll_L_steel.stl"/>
+    <mesh name="hip_roll_R_col0" file="mjcf/hip_roll_R_col0.stl"/>
+    <mesh name="hip_roll_R_col1" file="mjcf/hip_roll_R_col1.stl"/>
+    <mesh name="hip_roll_R_printed" file="mjcf/hip_roll_R_printed.stl"/>
+    <mesh name="hip_roll_R_steel" file="mjcf/hip_roll_R_steel.stl"/>
+    <mesh name="hip_yaw_L_col0" file="mjcf/hip_yaw_L_col0.stl"/>
+    <mesh name="hip_yaw_L_col1" file="mjcf/hip_yaw_L_col1.stl"/>
+    <mesh name="hip_yaw_L_col2" file="mjcf/hip_yaw_L_col2.stl"/>
+    <mesh name="hip_yaw_L_printed" file="mjcf/hip_yaw_L_printed.stl"/>
+    <mesh name="hip_yaw_L_steel" file="mjcf/hip_yaw_L_steel.stl"/>
+    <mesh name="hip_yaw_R_col0" file="mjcf/hip_yaw_R_col0.stl"/>
+    <mesh name="hip_yaw_R_col1" file="mjcf/hip_yaw_R_col1.stl"/>
+    <mesh name="hip_yaw_R_col2" file="mjcf/hip_yaw_R_col2.stl"/>
+    <mesh name="hip_yaw_R_printed" file="mjcf/hip_yaw_R_printed.stl"/>
+    <mesh name="hip_yaw_R_steel" file="mjcf/hip_yaw_R_steel.stl"/>
+    <mesh name="knee_crank_L_col0" file="mjcf/knee_crank_L_col0.stl"/>
+    <mesh name="knee_crank_L_printed" file="mjcf/knee_crank_L_printed.stl"/>
+    <mesh name="knee_crank_R_col0" file="mjcf/knee_crank_R_col0.stl"/>
+    <mesh name="knee_crank_R_printed" file="mjcf/knee_crank_R_printed.stl"/>
+    <mesh name="neck_link_col0" file="mjcf/neck_link_col0.stl"/>
+    <mesh name="neck_link_col1" file="mjcf/neck_link_col1.stl"/>
+    <mesh name="neck_link_col2" file="mjcf/neck_link_col2.stl"/>
+    <mesh name="neck_link_col3" file="mjcf/neck_link_col3.stl"/>
+    <mesh name="neck_link_printed" file="mjcf/neck_link_printed.stl"/>
+    <mesh name="neck_link_steel" file="mjcf/neck_link_steel.stl"/>
+    <mesh name="neck_nod_col0" file="mjcf/neck_nod_col0.stl"/>
+    <mesh name="neck_nod_printed" file="mjcf/neck_nod_printed.stl"/>
+    <mesh name="neck_yaw_col0" file="mjcf/neck_yaw_col0.stl"/>
+    <mesh name="neck_yaw_printed" file="mjcf/neck_yaw_printed.stl"/>
+    <mesh name="pushrod_L_col0" file="mjcf/pushrod_L_col0.stl"/>
+    <mesh name="pushrod_L_col1" file="mjcf/pushrod_L_col1.stl"/>
+    <mesh name="pushrod_L_col2" file="mjcf/pushrod_L_col2.stl"/>
+    <mesh name="pushrod_L_col3" file="mjcf/pushrod_L_col3.stl"/>
+    <mesh name="pushrod_L_col4" file="mjcf/pushrod_L_col4.stl"/>
+    <mesh name="pushrod_L_steel" file="mjcf/pushrod_L_steel.stl"/>
+    <mesh name="pushrod_R_col0" file="mjcf/pushrod_R_col0.stl"/>
+    <mesh name="pushrod_R_col1" file="mjcf/pushrod_R_col1.stl"/>
+    <mesh name="pushrod_R_col2" file="mjcf/pushrod_R_col2.stl"/>
+    <mesh name="pushrod_R_col3" file="mjcf/pushrod_R_col3.stl"/>
+    <mesh name="pushrod_R_col4" file="mjcf/pushrod_R_col4.stl"/>
+    <mesh name="pushrod_R_steel" file="mjcf/pushrod_R_steel.stl"/>
+    <mesh name="shin_L_col0" file="mjcf/shin_L_col0.stl"/>
+    <mesh name="shin_L_col1" file="mjcf/shin_L_col1.stl"/>
+    <mesh name="shin_L_col2" file="mjcf/shin_L_col2.stl"/>
+    <mesh name="shin_L_printed" file="mjcf/shin_L_printed.stl"/>
+    <mesh name="shin_R_col0" file="mjcf/shin_R_col0.stl"/>
+    <mesh name="shin_R_col1" file="mjcf/shin_R_col1.stl"/>
+    <mesh name="shin_R_col2" file="mjcf/shin_R_col2.stl"/>
+    <mesh name="shin_R_printed" file="mjcf/shin_R_printed.stl"/>
+    <mesh name="thigh_L_col0" file="mjcf/thigh_L_col0.stl"/>
+    <mesh name="thigh_L_col1" file="mjcf/thigh_L_col1.stl"/>
+    <mesh name="thigh_L_col2" file="mjcf/thigh_L_col2.stl"/>
+    <mesh name="thigh_L_col3" file="mjcf/thigh_L_col3.stl"/>
+    <mesh name="thigh_L_col4" file="mjcf/thigh_L_col4.stl"/>
+    <mesh name="thigh_L_col5" file="mjcf/thigh_L_col5.stl"/>
+    <mesh name="thigh_L_col6" file="mjcf/thigh_L_col6.stl"/>
+    <mesh name="thigh_L_col7" file="mjcf/thigh_L_col7.stl"/>
+    <mesh name="thigh_L_col8" file="mjcf/thigh_L_col8.stl"/>
+    <mesh name="thigh_L_printed" file="mjcf/thigh_L_printed.stl"/>
+    <mesh name="thigh_L_steel" file="mjcf/thigh_L_steel.stl"/>
+    <mesh name="thigh_R_col0" file="mjcf/thigh_R_col0.stl"/>
+    <mesh name="thigh_R_col1" file="mjcf/thigh_R_col1.stl"/>
+    <mesh name="thigh_R_col2" file="mjcf/thigh_R_col2.stl"/>
+    <mesh name="thigh_R_col3" file="mjcf/thigh_R_col3.stl"/>
+    <mesh name="thigh_R_col4" file="mjcf/thigh_R_col4.stl"/>
+    <mesh name="thigh_R_col5" file="mjcf/thigh_R_col5.stl"/>
+    <mesh name="thigh_R_col6" file="mjcf/thigh_R_col6.stl"/>
+    <mesh name="thigh_R_col7" file="mjcf/thigh_R_col7.stl"/>
+    <mesh name="thigh_R_col8" file="mjcf/thigh_R_col8.stl"/>
+    <mesh name="thigh_R_printed" file="mjcf/thigh_R_printed.stl"/>
+    <mesh name="thigh_R_steel" file="mjcf/thigh_R_steel.stl"/>
+  </asset>
+  <worldbody>
+    <light pos="0 -1 2" dir="0 0.5 -1" directional="true"/>
+    <geom name="floor" type="plane" size="3 3 0.05" material="grid" contype="1" conaffinity="1"/>
+    <body name="base_link" pos="0 0 0.215">
+      <freejoint name="root"/>
+      <site name="imu" pos="0 0 0.015"/>
+      <inertial pos="-0.0196517 0.000100607 0.0161897" mass="1.9598" fullinertia="2.5655e-03 6.8610e-03 8.1766e-03 -5.6714e-06 6.6033e-06 3.1890e-06"/>
+      <geom class="visual" mesh="base_link_alu" material="alu"/>
+      <geom class="visual" mesh="base_link_battery" material="battery"/>
+      <geom class="visual" mesh="base_link_printed" material="printed"/>
+      <geom class="visual" mesh="base_link_steel" material="steel"/>
+      <geom class="visual" type="cylinder" size="0.0230" fromto="-4.75314e-16 -0.048 -2.77556e-17 -4.75314e-16 -0.048 0.047" material="motor"/>
+      <geom class="collision" type="cylinder" size="0.0230" fromto="-4.75314e-16 -0.048 -2.77556e-17 -4.75314e-16 -0.048 0.047"/>
+      <geom class="visual" type="cylinder" size="0.0230" fromto="-4.75314e-16 0.048 -2.77556e-17 -4.75314e-16 0.048 0.047" material="motor"/>
+      <geom class="collision" type="cylinder" size="0.0230" fromto="-4.75314e-16 0.048 -2.77556e-17 -4.75314e-16 0.048 0.047"/>
+      <geom class="visual" type="cylinder" size="0.0230" fromto="0.08 1.42768e-15 -0.012 0.08 1.42768e-15 0.035" material="motor"/>
+      <geom class="collision" type="cylinder" size="0.0230" fromto="0.08 1.42768e-15 -0.012 0.08 1.42768e-15 0.035"/>
+      <geom class="collision" mesh="base_link_col0"/>
+      <geom class="collision" mesh="base_link_col1"/>
+      <geom class="collision" mesh="base_link_col2"/>
+      <geom class="collision" mesh="base_link_col3"/>
+      <geom class="collision" mesh="base_link_col4"/>
+      <geom class="collision" mesh="base_link_col5"/>
+      <geom class="collision" mesh="base_link_col6"/>
+      <geom class="collision" mesh="base_link_col7"/>
+      <geom class="collision" mesh="base_link_col8"/>
+      <geom class="collision" mesh="base_link_col9"/>
+      <body name="hip_yaw_L" pos="0 0.048 -0.062">
+        <joint name="hip_yaw_L" axis="0 0 1" range="-30 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
+        <inertial pos="0.0581804 -1.01133e-07 0.0051248" mass="0.5028" fullinertia="4.4639e-04 9.4864e-04 8.3274e-04 -2.6348e-10 1.5450e-04 -1.1479e-08"/>
+        <geom class="visual" mesh="hip_yaw_L_printed" material="printed"/>
+        <geom class="visual" mesh="hip_yaw_L_steel" material="steel"/>
+        <geom class="visual" type="cylinder" size="0.0393" fromto="0.05 1.78025e-05 2.20025e-05 0.0954 1.78025e-05 2.20025e-05" material="motor"/>
+        <geom class="collision" type="cylinder" size="0.0393" fromto="0.05 1.78025e-05 2.20025e-05 0.0954 1.78025e-05 2.20025e-05"/>
+        <geom class="collision" mesh="hip_yaw_L_col0"/>
+        <geom class="collision" mesh="hip_yaw_L_col1"/>
+        <geom class="collision" mesh="hip_yaw_L_col2"/>
+        <body name="hip_roll_L" pos="0 0 0">
+          <joint name="hip_roll_L" axis="1 0 0" range="-20 20" armature="0.01" damping="0.05" frictionloss="0.02" actuatorfrcrange="-17 17"/>
+          <inertial pos="-0.000339695 0.00342029 -4.68613e-05" mass="0.5270" fullinertia="3.1509e-04 5.2298e-04 4.2529e-04 -6.2437e-07 -7.5047e-08 4.6012e-07"/>
+          <geom class="visual" mesh="hip_roll_L_printed" material="printed"/>
+          <geom class="visual" mesh="hip_roll_L_steel" material="steel"/>
+          <geom class="visual" type="cylinder" size="0.0392" fromto="-1.88828e-06 -0.018275 -2.92496e-05 -1.88828e-06 0.027125 -2.92496e-05" material="motor"/>
+          <geom class="collision" type="cylinder" size="0.0392" fromto="-1.88828e-06 -0.018275 -2.92496e-05 -1.88828e-06 0.027125 -2.92496e-05"/>
+          <geom class="collision" mesh="hip_roll_L_col0"/>
+          <geom class="collision" mesh="hip_roll_L_col1"/>
+          <body name="thigh_L" pos="0 0 0">
+            <joint name="hip_pitch_L" axis="0 1 0" range="-62 90" armature="0.01" damping="0.05" frictionloss="0.02" actuatorfrcrange="-17 17"/>
+            <inertial pos="-1.22297e-05 0.070727 -0.00901923" mass="0.5472" fullinertia="7.8130e-04 7.5782e-04 4.0776e-04 1.0395e-07 1.4380e-07 -1.2717e-04"/>
+            <geom class="visual" mesh="thigh_L_printed" material="printed"/>
+            <geom class="visual" mesh="thigh_L_steel" material="steel"/>
+            <geom class="visual" type="cylinder" size="0.0392" fromto="-1.88828e-06 0.057325 2.92496e-05 -1.88828e-06 0.102725 2.92496e-05" material="motor"/>
+            <geom class="collision" type="cylinder" size="0.0392" fromto="-1.88828e-06 0.057325 2.92496e-05 -1.88828e-06 0.102725 2.92496e-05"/>
+            <geom class="collision" mesh="thigh_L_col0"/>
+            <geom class="collision" mesh="thigh_L_col1"/>
+            <geom class="collision" mesh="thigh_L_col2"/>
+            <geom class="collision" mesh="thigh_L_col3"/>
+            <geom class="collision" mesh="thigh_L_col4"/>
+            <geom class="collision" mesh="thigh_L_col5"/>
+            <geom class="collision" mesh="thigh_L_col6"/>
+            <geom class="collision" mesh="thigh_L_col7"/>
+            <geom class="collision" mesh="thigh_L_col8"/>
+            <body name="shin_L" pos="0 0.044 -0.09">
+              <joint name="knee_L" axis="0 1 0" range="-80 15" armature="0.01" damping="0.05" frictionloss="0.02" actuatorfrcrange="-17 17"/>
+              <inertial pos="0.088326 -0.000282063 8.07046e-05" mass="0.2632" fullinertia="1.1241e-04 2.3946e-04 2.6823e-04 8.0050e-06 -3.4500e-07 -3.2486e-07"/>
+              <geom class="visual" mesh="shin_L_printed" material="printed"/>
+              <geom class="visual" type="cylinder" size="0.0230" fromto="0.1 -0.023525 1.06859e-15 0.1 0.023475 1.06859e-15" material="motor"/>
+              <geom class="collision" type="cylinder" size="0.0230" fromto="0.1 -0.023525 1.06859e-15 0.1 0.023475 1.06859e-15"/>
+              <geom class="collision" mesh="shin_L_col0"/>
+              <geom class="collision" mesh="shin_L_col1"/>
+              <geom class="collision" mesh="shin_L_col2"/>
+              <body name="foot_L" pos="0.1 0 0">
+                <joint name="ankle_L" axis="0 1 0" range="-60 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
+                <inertial pos="0.0133794 0.00120577 -0.0276265" mass="0.0844" fullinertia="8.8867e-05 1.1635e-04 1.2716e-04 -5.8610e-07 2.0082e-05 1.2102e-06"/>
+                <geom class="visual" mesh="foot_L_printed" material="printed"/>
+                <geom class="visual" mesh="foot_L_steel" material="steel"/>
+                <geom class="collision" mesh="foot_L_col0"/>
+                <geom class="collision" mesh="foot_L_col1"/>
+                <geom class="collision" mesh="foot_L_col2"/>
+                <geom class="collision" mesh="foot_L_col3"/>
+                <geom class="collision" mesh="foot_L_col4"/>
+                <geom class="collision" mesh="foot_L_col5"/>
+                <body name="sole_L" pos="0.0272 0.0007 -0.051">
+                  <site name="sole_L" size="0.005"/>
+                </body>
+              </body>
+            </body>
+            <body name="knee_crank_L" pos="0 0.0526 0">
+              <joint name="knee_crank_L" axis="0 1 0" range="-80 15" armature="0.0001" damping="0.001"/>
+              <inertial pos="-0.00372982 2.2446e-05 -4.09845e-10" mass="0.0097" fullinertia="8.9523e-07 2.3516e-06 1.5801e-06 -4.7084e-08 -6.7502e-14 -5.1738e-15"/>
+              <geom class="visual" mesh="knee_crank_L_printed" material="printed"/>
+              <body name="pushrod_L" pos="-0.025 -0.0098 0">
+                <joint name="pushrod_L" axis="0 1 0" range="-15 80" armature="0.0001" damping="0.001"/>
+                <inertial pos="2.03928e-17 0.000313384 -0.045" mass="0.0806" fullinertia="9.4966e-05 9.5386e-05 1.7943e-06 -4.6711e-21 4.1437e-11 3.0176e-21"/>
+                <geom class="visual" mesh="pushrod_L_steel" material="steel"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="hip_yaw_R" pos="0 -0.048 -0.062">
+        <joint name="hip_yaw_R" axis="0 0 1" range="-30 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
+        <inertial pos="0.0581804 1.07519e-07 0.00512479" mass="0.5028" fullinertia="4.4639e-04 9.4864e-04 8.3274e-04 1.5174e-10 1.5450e-04 1.1496e-08"/>
+        <geom class="visual" mesh="hip_yaw_R_printed" material="printed"/>
+        <geom class="visual" mesh="hip_yaw_R_steel" material="steel"/>
+        <geom class="visual" type="cylinder" size="0.0393" fromto="0.05 -1.78025e-05 2.20025e-05 0.0954 -1.78025e-05 2.20025e-05" material="motor"/>
+        <geom class="collision" type="cylinder" size="0.0393" fromto="0.05 -1.78025e-05 2.20025e-05 0.0954 -1.78025e-05 2.20025e-05"/>
+        <geom class="collision" mesh="hip_yaw_R_col0"/>
+        <geom class="collision" mesh="hip_yaw_R_col1"/>
+        <geom class="collision" mesh="hip_yaw_R_col2"/>
+        <body name="hip_roll_R" pos="0 0 0">
+          <joint name="hip_roll_R" axis="1 0 0" range="-20 20" armature="0.01" damping="0.05" frictionloss="0.02" actuatorfrcrange="-17 17"/>
+          <inertial pos="-0.000339702 -0.00342029 -4.68564e-05" mass="0.5270" fullinertia="3.1509e-04 5.2298e-04 4.2529e-04 6.2445e-07 -7.5050e-08 -4.6017e-07"/>
+          <geom class="visual" mesh="hip_roll_R_printed" material="printed"/>
+          <geom class="visual" mesh="hip_roll_R_steel" material="steel"/>
+          <geom class="visual" type="cylinder" size="0.0392" fromto="-1.88828e-06 -0.027125 -2.92496e-05 -1.88828e-06 0.018275 -2.92496e-05" material="motor"/>
+          <geom class="collision" type="cylinder" size="0.0392" fromto="-1.88828e-06 -0.027125 -2.92496e-05 -1.88828e-06 0.018275 -2.92496e-05"/>
+          <geom class="collision" mesh="hip_roll_R_col0"/>
+          <geom class="collision" mesh="hip_roll_R_col1"/>
+          <body name="thigh_R" pos="0 0 0">
+            <joint name="hip_pitch_R" axis="0 1 0" range="-62 90" armature="0.01" damping="0.05" frictionloss="0.02" actuatorfrcrange="-17 17"/>
+            <inertial pos="-1.22369e-05 -0.070727 -0.00901923" mass="0.5472" fullinertia="7.8130e-04 7.5782e-04 4.0776e-04 -1.0406e-07 1.4383e-07 1.2717e-04"/>
+            <geom class="visual" mesh="thigh_R_printed" material="printed"/>
+            <geom class="visual" mesh="thigh_R_steel" material="steel"/>
+            <geom class="visual" type="cylinder" size="0.0392" fromto="-1.88828e-06 -0.102725 2.92496e-05 -1.88828e-06 -0.057325 2.92496e-05" material="motor"/>
+            <geom class="collision" type="cylinder" size="0.0392" fromto="-1.88828e-06 -0.102725 2.92496e-05 -1.88828e-06 -0.057325 2.92496e-05"/>
+            <geom class="collision" mesh="thigh_R_col0"/>
+            <geom class="collision" mesh="thigh_R_col1"/>
+            <geom class="collision" mesh="thigh_R_col2"/>
+            <geom class="collision" mesh="thigh_R_col3"/>
+            <geom class="collision" mesh="thigh_R_col4"/>
+            <geom class="collision" mesh="thigh_R_col5"/>
+            <geom class="collision" mesh="thigh_R_col6"/>
+            <geom class="collision" mesh="thigh_R_col7"/>
+            <geom class="collision" mesh="thigh_R_col8"/>
+            <body name="shin_R" pos="0 -0.044 -0.09">
+              <joint name="knee_R" axis="0 1 0" range="-80 15" armature="0.01" damping="0.05" frictionloss="0.02" actuatorfrcrange="-17 17"/>
+              <inertial pos="0.088326 0.000282058 8.0704e-05" mass="0.2632" fullinertia="1.1241e-04 2.3946e-04 2.6823e-04 -8.0050e-06 -3.4500e-07 3.2486e-07"/>
+              <geom class="visual" mesh="shin_R_printed" material="printed"/>
+              <geom class="visual" type="cylinder" size="0.0230" fromto="0.1 -0.023475 1.06859e-15 0.1 0.023525 1.06859e-15" material="motor"/>
+              <geom class="collision" type="cylinder" size="0.0230" fromto="0.1 -0.023475 1.06859e-15 0.1 0.023525 1.06859e-15"/>
+              <geom class="collision" mesh="shin_R_col0"/>
+              <geom class="collision" mesh="shin_R_col1"/>
+              <geom class="collision" mesh="shin_R_col2"/>
+              <body name="foot_R" pos="0.1 0 0">
+                <joint name="ankle_R" axis="0 1 0" range="-60 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
+                <inertial pos="0.0133794 -0.00120577 -0.0276265" mass="0.0844" fullinertia="8.8867e-05 1.1635e-04 1.2716e-04 5.8610e-07 2.0082e-05 -1.2102e-06"/>
+                <geom class="visual" mesh="foot_R_printed" material="printed"/>
+                <geom class="visual" mesh="foot_R_steel" material="steel"/>
+                <geom class="collision" mesh="foot_R_col0"/>
+                <geom class="collision" mesh="foot_R_col1"/>
+                <geom class="collision" mesh="foot_R_col2"/>
+                <geom class="collision" mesh="foot_R_col3"/>
+                <geom class="collision" mesh="foot_R_col4"/>
+                <geom class="collision" mesh="foot_R_col5"/>
+                <body name="sole_R" pos="0.0272 -0.0007 -0.051">
+                  <site name="sole_R" size="0.005"/>
+                </body>
+              </body>
+            </body>
+            <body name="knee_crank_R" pos="0 -0.0526 0">
+              <joint name="knee_crank_R" axis="0 1 0" range="-80 15" armature="0.0001" damping="0.001"/>
+              <inertial pos="-0.00372982 -2.2446e-05 -4.09845e-10" mass="0.0097" fullinertia="8.9523e-07 2.3516e-06 1.5801e-06 4.7084e-08 -6.7502e-14 5.1738e-15"/>
+              <geom class="visual" mesh="knee_crank_R_printed" material="printed"/>
+              <body name="pushrod_R" pos="-0.025 0.0098 0">
+                <joint name="pushrod_R" axis="0 1 0" range="-15 80" armature="0.0001" damping="0.001"/>
+                <inertial pos="2.03928e-17 -0.000313384 -0.045" mass="0.0806" fullinertia="9.4966e-05 9.5386e-05 1.7943e-06 4.6690e-21 4.1437e-11 5.3204e-21"/>
+                <geom class="visual" mesh="pushrod_R_steel" material="steel"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="neck_yaw" pos="0.08 0 0.035">
+        <joint name="neck_yaw" axis="0 0 1" range="-60 60" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
+        <inertial pos="-2.80063e-06 -0.00168892 0.0296704" mass="0.2249" fullinertia="1.1470e-04 9.0994e-05 1.0476e-04 2.2130e-08 -9.4722e-08 5.9722e-07"/>
+        <geom class="visual" mesh="neck_yaw_printed" material="printed"/>
+        <geom class="visual" type="cylinder" size="0.0230" fromto="1.49533e-15 -0.025 0.032 1.49533e-15 0.022 0.032" material="motor"/>
+        <geom class="collision" type="cylinder" size="0.0230" fromto="1.49533e-15 -0.025 0.032 1.49533e-15 0.022 0.032"/>
+        <geom class="collision" mesh="neck_yaw_col0"/>
+        <body name="neck_link" pos="0 0 0.032">
+          <joint name="neck_pitch" axis="0 1 0" range="-90 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
+          <inertial pos="0.03 0.00171797 -3.60278e-17" mass="0.0652" fullinertia="7.3585e-05 6.6990e-05 1.2068e-04 2.8391e-21 6.5483e-20 2.1914e-20"/>
+          <geom class="visual" mesh="neck_link_printed" material="printed"/>
+          <geom class="visual" mesh="neck_link_steel" material="steel"/>
+          <geom class="collision" mesh="neck_link_col0"/>
+          <geom class="collision" mesh="neck_link_col1"/>
+          <geom class="collision" mesh="neck_link_col2"/>
+          <geom class="collision" mesh="neck_link_col3"/>
+          <body name="neck_nod" pos="0.06 0 0">
+            <joint name="neck_nod" axis="0 1 0" range="-60 90" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
+            <inertial pos="0.00393668 -0.00172834 9.15234e-05" mass="0.2323" fullinertia="1.0550e-04 1.0355e-04 1.2599e-04 -1.5592e-06 -1.2509e-08 -3.2428e-07"/>
+            <geom class="visual" mesh="neck_nod_printed" material="printed"/>
+            <geom class="visual" type="cylinder" size="0.0230" fromto="9.02056e-17 -0.025 8.32667e-17 9.02056e-17 0.022 8.32667e-17" material="motor"/>
+            <geom class="collision" type="cylinder" size="0.0230" fromto="9.02056e-17 -0.025 8.32667e-17 9.02056e-17 0.022 8.32667e-17"/>
+            <geom class="collision" mesh="neck_nod_col0"/>
+            <body name="head" pos="0.0415 0 0">
+              <joint name="head_roll" axis="1 0 0" range="-35 35" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
+              <inertial pos="0.0373608 4.1628e-05 -1.23227e-06" mass="0.5106" fullinertia="4.1980e-04 8.6887e-04 8.0760e-04 -2.4792e-08 1.3285e-08 -9.6215e-08"/>
+              <geom class="visual" mesh="head_printed" material="printed"/>
+              <geom class="visual" mesh="head_steel" material="steel"/>
+              <geom class="visual" type="cylinder" size="0.0230" fromto="4.16334e-16 -1.14492e-15 2.36753e-09 0.047 -1.14492e-15 2.36753e-09" material="motor"/>
+              <geom class="collision" type="cylinder" size="0.0230" fromto="4.16334e-16 -1.14492e-15 2.36753e-09 0.047 -1.14492e-15 2.36753e-09"/>
+              <geom class="collision" mesh="head_col0"/>
+              <geom class="collision" mesh="head_col1"/>
+              <geom class="collision" mesh="head_col2"/>
+              <geom class="collision" mesh="head_col3"/>
+              <geom class="collision" mesh="head_col4"/>
+              <geom class="collision" mesh="head_col5"/>
+              <geom class="collision" mesh="head_col6"/>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <equality>
+    <joint joint1="knee_crank_L" joint2="knee_L" polycoef="0 1.0 0 0 0" solref="0.005 1"/>
+    <joint joint1="pushrod_L" joint2="knee_L" polycoef="0 -1.0 0 0 0" solref="0.005 1"/>
+    <joint joint1="knee_crank_R" joint2="knee_R" polycoef="0 1.0 0 0 0" solref="0.005 1"/>
+    <joint joint1="pushrod_R" joint2="knee_R" polycoef="0 -1.0 0 0 0" solref="0.005 1"/>
+  </equality>
+  <actuator>
+    <motor name="hip_yaw_L" joint="hip_yaw_L" ctrlrange="-5.5 5.5"/>
+    <motor name="hip_roll_L" joint="hip_roll_L" ctrlrange="-17 17"/>
+    <motor name="hip_pitch_L" joint="hip_pitch_L" ctrlrange="-17 17"/>
+    <motor name="knee_L" joint="knee_L" ctrlrange="-17 17"/>
+    <motor name="ankle_L" joint="ankle_L" ctrlrange="-5.5 5.5"/>
+    <motor name="hip_yaw_R" joint="hip_yaw_R" ctrlrange="-5.5 5.5"/>
+    <motor name="hip_roll_R" joint="hip_roll_R" ctrlrange="-17 17"/>
+    <motor name="hip_pitch_R" joint="hip_pitch_R" ctrlrange="-17 17"/>
+    <motor name="knee_R" joint="knee_R" ctrlrange="-17 17"/>
+    <motor name="ankle_R" joint="ankle_R" ctrlrange="-5.5 5.5"/>
+    <motor name="neck_yaw" joint="neck_yaw" ctrlrange="-5.5 5.5"/>
+    <motor name="neck_pitch" joint="neck_pitch" ctrlrange="-5.5 5.5"/>
+    <motor name="neck_nod" joint="neck_nod" ctrlrange="-5.5 5.5"/>
+    <motor name="head_roll" joint="head_roll" ctrlrange="-5.5 5.5"/>
+  </actuator>
+  <sensor>
+    <framequat name="imu_quat" objtype="site" objname="imu"/><gyro name="imu_gyro" site="imu"/><accelerometer name="imu_acc" site="imu"/>
+  </sensor>
+  <keyframe>
+    <key name="cad_pose" qpos="0 0 0.2035 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"/>
+    <key name="stand" qpos="0 0 0.2235 1 0 0 0 0 0 1.0603 -0.33939 -0.7209 -0.33939 0.33939 0 0 1.0603 -0.33939 -0.7209 -0.33939 0.33939 0 0 0 0"/>
+  </keyframe>
+</mujoco>
