@@ -2,7 +2,7 @@
   <!-- Draxi urdf_v1, generated from draxie.step 2026-11-26. Same kinematics/masses as draxi.urdf.
        Knee crank + pushrod follow the knee through joint equalities (parallelogram, 1:1). -->
   <compiler angle="degree" meshdir="meshes"/>
-  <option timestep="0.002" integrator="implicitfast"/>
+  <option timestep="0.001" integrator="implicitfast"/>
   <default>
     <geom contype="0" conaffinity="0"/>
     <default class="visual"><geom type="mesh" group="2" density="0"/></default>

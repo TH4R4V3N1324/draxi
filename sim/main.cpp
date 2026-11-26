@@ -2,7 +2,7 @@
 // loop the Teensy will: read joints and IMU through the Hal, update the controller, send commands.
 // MujocoHal stands in for the hardware and the RobStride motors' own PD loop.
 //
-//   draxi_sim [model.xml] [--headless SECONDS]
+//   draxi_sim [model.xml] [--headless SECONDS] [--control-hz HZ]
 //
 // Viewer keys: Space pause, Backspace reset to stand, mouse to orbit/pan/zoom.
 
@@ -31,6 +31,10 @@ draxi::ImuSample imu{};
 draxi::JointCommands commands{};
 int standKey = -1;
 
+double controlHz = 500.0;  // controller rate, set by --control-hz
+int controlEvery = 1;  // physics steps per control tick, set in main()
+long stepCount = 0;
+
 void resetToStand() {
     if (standKey >= 0) {
         mj_resetDataKeyframe(m, d, standKey);
@@ -40,14 +44,20 @@ void resetToStand() {
     mj_forward(m, d);
     hal->readJoints(jointStates);
     controller.reset(jointStates);
+
+    stepCount = 0;
 }
 
-// One control tick, then one physics step. The controller runs at the physics rate for now
+// The motors (applyMotors) run every physics step; the controller only every controlEvery steps,
+// the way the Teensy will run slower than the RobStride's own loop
 void step() {
-    hal->readJoints(jointStates);
-    hal->readImu(imu);
-    controller.update(jointStates, imu, static_cast<float>(m->opt.timestep), commands);
-    hal->sendCommands(commands);
+    if (stepCount % controlEvery == 0) {
+        hal->readJoints(jointStates);
+        hal->readImu(imu);
+        controller.update(jointStates, imu, static_cast<float>(1.0 / controlHz), commands);
+        hal->sendCommands(commands);
+    }
+    ++stepCount;
 
     hal->applyMotors();
     mj_step(m, d);
@@ -181,6 +191,8 @@ int main(int argc, char** argv) {
     for (int i = 1; i < argc; ++i) {
         if (!std::strcmp(argv[i], "--headless") && i + 1 < argc) {
             headlessSeconds = std::atof(argv[++i]);
+        } else if (!std::strcmp(argv[i], "--control-hz") && i + 1 < argc) {
+            controlHz = std::atof(argv[++i]);
         } else {
             modelPath = argv[i];
         }
@@ -202,6 +214,20 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     }
     standKey = mj_name2id(m, mjOBJ_KEY, "stand");
+
+    if (!(controlHz > 0)) {
+        std::fprintf(stderr, "--control-hz must be a positive number\n");
+        return EXIT_FAILURE;
+    }
+    controlEvery = static_cast<int>(std::lround(1.0 / (controlHz * m->opt.timestep)));
+    if (controlEvery < 1 || std::abs(controlEvery * m->opt.timestep * controlHz - 1.0) > 1e-6) {
+        std::fprintf(stderr, "Control rate %.0f Hz is not a whole number of %.4f s physics steps\n",
+                    controlHz, m->opt.timestep);
+        return EXIT_FAILURE;
+    }
+    std::printf("Physics %.0f Hz, control %.0f Hz (every %d steps)\n",
+                1.0 / m->opt.timestep, controlHz, controlEvery);
+
     resetToStand();
 
     int result = headlessSeconds >= 0 ? runHeadless(headlessSeconds) : runViewer();
