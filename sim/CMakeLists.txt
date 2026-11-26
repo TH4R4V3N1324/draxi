@@ -58,9 +58,9 @@ FetchContent_MakeAvailable(glfw)
 # ---------------------------------------------------------------------------
 # draxi_sim
 # ---------------------------------------------------------------------------
-add_executable(draxi_sim main.cpp)
+add_executable(draxi_sim main.cpp mujoco_hal.cpp)
 target_compile_features(draxi_sim PRIVATE cxx_std_17)
-target_link_libraries(draxi_sim PRIVATE mujoco::mujoco glfw gait_core::gait_core)
+target_link_libraries(draxi_sim PRIVATE draxi::control mujoco::mujoco glfw)
 target_compile_definitions(draxi_sim PRIVATE DRAXI_DEFAULT_MODEL="${CMAKE_SOURCE_DIR}/cad/draxi.xml")
 if(NOT WIN32)
   set_target_properties(draxi_sim PROPERTIES BUILD_RPATH ${MUJOCO_ROOT}/lib)

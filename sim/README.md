@@ -26,7 +26,17 @@ scroll zoom.
 
 ## How it works
 
-Draxi starts in the `stand` keyframe and a PD loop holds each joint at its target through the torque
-motors (`Controller` in [main.cpp](main.cpp), gains scaled by each motor's torque limit). gait_core
-is already linked: driving the robot means filling `Controller::targets` from the gait engine each
-tick.
+The sim runs the same loop the Teensy will, through the `draxi::Hal` interface in
+[control/](../control):
+
+```
+hal.readJoints -> hal.readImu -> controller.update -> hal.sendCommands -> mj_step
+```
+
+- [mujoco_hal.cpp](mujoco_hal.cpp) is the `Hal` on top of MuJoCo. It finds each joint in
+  [shared/include/draxi/joints.hpp](../shared/include/draxi/joints.hpp) by name and refuses to start
+  if the model's ranges or torque limits differ from it. It also stands in for the RobStride motors:
+  before every physics step it runs their MIT-mode law,
+  `kp*(pos - q) + kd*(vel - qd) + torqueFF`, clamped to the motor's peak torque.
+- `draxi::StandController` (in `control/`) holds Draxi in the `stand` keyframe. The gait goes in
+  its place later.

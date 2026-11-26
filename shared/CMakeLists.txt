@@ -1,0 +1,5 @@
+# Header-only: what the sim and the firmware have to agree on (joint names, order, limits)
+add_library(draxi_shared INTERFACE)
+add_library(draxi::shared ALIAS draxi_shared)
+target_include_directories(draxi_shared INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_features(draxi_shared INTERFACE cxx_std_17)

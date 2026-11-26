@@ -12,4 +12,6 @@ if(NOT EXISTS ${CMAKE_SOURCE_DIR}/libs/legged-gait-core/CMakeLists.txt)
 endif()
 
 add_subdirectory(libs/legged-gait-core)
+add_subdirectory(shared)
+add_subdirectory(control)
 add_subdirectory(sim)
