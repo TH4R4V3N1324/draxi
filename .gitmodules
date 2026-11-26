@@ -1,0 +1,3 @@
+[submodule "libs/legged-gait-core"]
+	path = libs/legged-gait-core
+	url = https://github.com/TH4R4V3N1324/legged-gait-core.git
