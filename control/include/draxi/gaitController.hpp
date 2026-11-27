@@ -55,10 +55,10 @@ public:
     // and kd 0.35-0.45 damps the sway best (2026-11-27)
     static constexpr float kpPerNm = 9.0f;
     static constexpr float kdPerNm = 0.35f;
-    // Share of the engine's feedforward torques sent to the legs. All of them overshoot (the PD is
-    // holding the same weight up): 0.8 cuts the body's tilt walking from 1.4 to 0.5 deg RMS and the
-    // sway from 25 to 21 mm; 1.2 is worse still
-    static constexpr float kTorqueScale = 0.8f;
+    // Share of the engine's feedforward torques sent to the legs. With the stance legs left to the
+    // torques (GaitParams::stance_stiffness, kp/kd scaled by GaitOutput::stiffness) they have to carry
+    // all the weight, so all of it. (On full position gains 0.8 was best, the PD holding the rest.)
+    static constexpr float kTorqueScale = 1.0f;
 
     // s, how much the velocity target is smoothed. Each leg joint's MIT-mode velocity target is the
     // rate its commanded angle changes at: with a target of 0, the motor's kd term brakes every move,

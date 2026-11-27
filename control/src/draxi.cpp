@@ -117,9 +117,10 @@ RobotDefinition robot() {
         def.soleMin = Vec2(-back, left ? -inner : -outer);
         def.soleMax = Vec2(front, left ? outer : inner);
 
-        // Each foot 38 mm out from the middle, 8 mm in from straight under its hip (the knee's 44 mm
-        // and the ankle's 2 mm): less to sway across each step (sim, 2026-11-27). 34-38 mm
-        // walk alike; 40 mm and wider fall at 0.16 m/s. Leaves 20 mm between the soles.
+        // Each foot 38 mm out from its hip (86 mm from the middle), 8 mm in from where the leg hangs
+        // (the knee's 44 mm and the ankle's 2 mm): less to sway across each step (sim, 2026-11-27).
+        // 28-38 mm walk alike; 40 mm and wider fall at 0.16 m/s, and 18 mm or less runs the hip roll
+        // into its 20 degree limit and falls
         def.stanceOffset = v(0, side * 0.038, 0);
 
         return def;

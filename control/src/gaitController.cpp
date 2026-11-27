@@ -57,6 +57,15 @@ gait_core::GaitParams GaitController::defaultParams() {
     // (0.1 s) walking, against 20 N without. It doesn't see pushes much smaller than the walk's own
     // wobble, and its catching steps are capped at maxStride.
     p.balance_feedback = true;
+    // Torque-led stance: planted legs on 40% of the position gains, the torques holding the body's
+    // height and tilt (5 Hz) and pushing from past where the capture point has gone (gain 2), with
+    // ankle moments. In the sim (2026-11-27): walking tilt 0.4-0.8 deg peak against 0.7-1.2, turning
+    // 0.5 against 3.9; 0.1 s shoves survived standing 30/70/30 N (forward/left/back, from 25/70/25)
+    // and walking 35/100/30 N (from 30/100/30); 0.04-0.16 m/s and turning walk as before. Below 0.15
+    // the walk slows; past ~35 N forward the capture point is beyond the soles and only a step helps.
+    p.stance_stiffness = Scalar(0.4);
+    p.stance_posture_frequency = Scalar(5.0);
+    p.capture_torque_gain = Scalar(2.0);
     return p;
 }
 
@@ -155,6 +164,10 @@ void GaitController::update(const JointStates& states, const ImuSample& imu, flo
             const JointInfo& info = kJoints[i];
             c.position = std::clamp(static_cast<float>(output.joints[leg](j)), info.minRad, info.maxRad);
             c.torqueFF = output.hasTorques ? kTorqueScale * static_cast<float>(output.torques[leg](j)) : 0.0f;
+            // A planted leg is left to the torques: the engine says how much of the position gains to keep
+            const float stiffness = static_cast<float>(output.stiffness[leg](j));
+            c.kp *= stiffness;
+            c.kd *= stiffness;
 
             // Velocity target: how fast the command moves, smoothed and within the joint's speed limit
             const float limit = def.joints[j].velocityLimit(params_.max_joint_speed);
