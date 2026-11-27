@@ -20,6 +20,12 @@ enum leg : uint8_t {
     NUM_LEGS
 };
 
+// The robot's appendages in gait-core (RobotDefinition::appendages): the neck and head
+enum appendage : uint8_t {
+    NECK,
+    NUM_APPENDAGES
+};
+
 RobotDefinition robot();
 
 } // namespace draxi

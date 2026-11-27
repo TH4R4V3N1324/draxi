@@ -8,8 +8,8 @@
 namespace draxi {
 
 enum class JointId : uint8_t {
-  HipYawL, HipRollL, HipPitchL, KneeL, AnkleL,
-  HipYawR, HipRollR, HipPitchR, KneeR, AnkleR,
+  HipYawL, HipRollL, HipPitchL, KneeL, AnkleL, AnkleRollL,
+  HipYawR, HipRollR, HipPitchR, KneeR, AnkleR, AnkleRollR,
   NeckYaw, NeckPitch, NeckNod, HeadRoll,
   Count
 };
@@ -36,11 +36,13 @@ constexpr std::array<JointInfo, kNumJoints> kJoints = {{
     {"hip_pitch_L", deg(-62), deg(90),  17.0f},
     {"knee_L",      deg(-80), deg(15),  17.0f},
     {"ankle_L",     deg(-60), deg(30),  5.5f},
+    {"ankle_roll_L", deg(-30), deg(30), 5.5f},   // provisional: range and motor until the ankle-roll CAD
     {"hip_yaw_R",   deg(-30), deg(30),  5.5f},
     {"hip_roll_R",  deg(-20), deg(20),  17.0f},
     {"hip_pitch_R", deg(-62), deg(90),  17.0f},
     {"knee_R",      deg(-80), deg(15),  17.0f},
     {"ankle_R",     deg(-60), deg(30),  5.5f},
+    {"ankle_roll_R", deg(-30), deg(30), 5.5f},   // provisional
     {"neck_yaw",    deg(-60), deg(60),  5.5f},
     {"neck_pitch",  deg(-90), deg(30),  5.5f},
     {"neck_nod",    deg(-60), deg(90),  5.5f},

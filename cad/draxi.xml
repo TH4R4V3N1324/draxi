@@ -203,6 +203,9 @@
               <geom class="collision" mesh="shin_L_col2"/>
               <body name="foot_L" pos="0.1 0 0">
                 <joint name="ankle_L" axis="0 1 0" range="-60 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
+                <!-- Ankle roll: provisional, until the ankle-roll CAD is exported. After the pitch
+                     joint in the same body, so it rolls about the foot's own forward axis -->
+                <joint name="ankle_roll_L" axis="1 0 0" range="-30 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
                 <inertial pos="0.0133794 0.00120577 -0.0276265" mass="0.0844" fullinertia="8.8867e-05 1.1635e-04 1.2716e-04 -5.8610e-07 2.0082e-05 1.2102e-06"/>
                 <geom class="visual" mesh="foot_L_printed" material="printed"/>
                 <geom class="visual" mesh="foot_L_steel" material="steel"/>
@@ -276,6 +279,8 @@
               <geom class="collision" mesh="shin_R_col2"/>
               <body name="foot_R" pos="0.1 0 0">
                 <joint name="ankle_R" axis="0 1 0" range="-60 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
+                <!-- Ankle roll: provisional (see the left foot) -->
+                <joint name="ankle_roll_R" axis="1 0 0" range="-30 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
                 <inertial pos="0.0133794 -0.00120577 -0.0276265" mass="0.0844" fullinertia="8.8867e-05 1.1635e-04 1.2716e-04 5.8610e-07 2.0082e-05 -1.2102e-06"/>
                 <geom class="visual" mesh="foot_R_printed" material="printed"/>
                 <geom class="visual" mesh="foot_R_steel" material="steel"/>
@@ -358,11 +363,13 @@
     <motor name="hip_pitch_L" joint="hip_pitch_L" ctrlrange="-17 17"/>
     <motor name="knee_L" joint="knee_L" ctrlrange="-17 17"/>
     <motor name="ankle_L" joint="ankle_L" ctrlrange="-5.5 5.5"/>
+    <motor name="ankle_roll_L" joint="ankle_roll_L" ctrlrange="-5.5 5.5"/>
     <motor name="hip_yaw_R" joint="hip_yaw_R" ctrlrange="-5.5 5.5"/>
     <motor name="hip_roll_R" joint="hip_roll_R" ctrlrange="-17 17"/>
     <motor name="hip_pitch_R" joint="hip_pitch_R" ctrlrange="-17 17"/>
     <motor name="knee_R" joint="knee_R" ctrlrange="-17 17"/>
     <motor name="ankle_R" joint="ankle_R" ctrlrange="-5.5 5.5"/>
+    <motor name="ankle_roll_R" joint="ankle_roll_R" ctrlrange="-5.5 5.5"/>
     <motor name="neck_yaw" joint="neck_yaw" ctrlrange="-5.5 5.5"/>
     <motor name="neck_pitch" joint="neck_pitch" ctrlrange="-5.5 5.5"/>
     <motor name="neck_nod" joint="neck_nod" ctrlrange="-5.5 5.5"/>
@@ -372,7 +379,7 @@
     <framequat name="imu_quat" objtype="site" objname="imu"/><gyro name="imu_gyro" site="imu"/><accelerometer name="imu_acc" site="imu"/>
   </sensor>
   <keyframe>
-    <key name="cad_pose" qpos="0 0 0.2035 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"/>
-    <key name="stand" qpos="0 0 0.2235 1 0 0 0 0 0 1.0603 -0.33939 -0.7209 -0.33939 0.33939 0 0 1.0603 -0.33939 -0.7209 -0.33939 0.33939 0 0 0 0"/>
+    <key name="cad_pose" qpos="0 0 0.2035 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"/>
+    <key name="stand" qpos="0 0 0.2235 1 0 0 0 0 0 1.0603 -0.33939 -0.7209 0 -0.33939 0.33939 0 0 1.0603 -0.33939 -0.7209 0 -0.33939 0.33939 0 0 0 0"/>
   </keyframe>
 </mujoco>

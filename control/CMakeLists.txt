@@ -3,6 +3,7 @@
 add_library(draxi_control STATIC
   src/draxi.cpp
   src/draxiKinematics.cpp
+  src/gaitController.cpp
   src/stand_controller.cpp
 )
 add_library(draxi::control ALIAS draxi_control)

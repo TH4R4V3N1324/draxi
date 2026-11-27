@@ -15,14 +15,18 @@ build/sim/draxi_sim                     # Linux
 ```
 
 ```
-draxi_sim [model.xml] [--headless SECONDS]
+draxi_sim [model.xml] [--headless SECONDS] [--control-hz HZ] [--stand]
+          [--walk VX] [--strafe VY] [--turn WZ] [--record FILE.mp4]
 ```
 
 With no model it loads `cad/draxi.xml`. `--headless` runs without a window and exits non-zero if the
-robot fell, for quick checks.
+robot fell, for quick checks. `--walk`, `--strafe` and `--turn` set the command (m/s forward, m/s
+left, rad/s anticlockwise) from 3 s in, and headless it reports how far it walked, strafed and
+turned. `--record` renders the run offscreen to a video (front and side views, 30 fps) through
+ffmpeg, which must be on the PATH.
 
-Viewer: Space pause, Backspace reset to the `stand` keyframe, left drag orbit, right drag pan,
-scroll zoom.
+Viewer: Space pause, Backspace reset to the `stand` keyframe, Up/Down walk faster/slower, Left/Right
+turn, Q/E strafe left/right, X stop, left drag orbit, right drag pan, scroll zoom.
 
 ## How it works
 
