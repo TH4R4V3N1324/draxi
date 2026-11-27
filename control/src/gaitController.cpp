@@ -97,10 +97,13 @@ void GaitController::reset(const JointStates& states) {
 }
 
 void GaitController::setVelocity(float vx, float vy, float wz) {
+    // Within what Draxi can walk (see kMaxSpeed): the speed scaled down keeping its direction
+    const float speed = std::hypot(vx, vy);
+    const float scale = speed > kMaxSpeed ? kMaxSpeed / speed : 1.0f;
     gait_core::VelocityCommand cmd;
-    cmd.vx = vx;
-    cmd.vy = vy;
-    cmd.wz = wz;
+    cmd.vx = vx * scale;
+    cmd.vy = vy * scale;
+    cmd.wz = std::clamp(wz, -kMaxTurnRate, kMaxTurnRate);
     engine_.setVelocity(cmd);
 }
 

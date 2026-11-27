@@ -33,8 +33,14 @@ public:
     // the crouch and stands up) and the neck held where it is
     void reset(const JointStates& states);
 
-    // m/s forward, m/s left (strafing), rad/s anticlockwise
+    // m/s forward, m/s left (strafing), rad/s anticlockwise; capped at kMaxSpeed and kMaxTurnRate
     void setVelocity(float vx, float vy, float wz);
+
+    // Fastest Draxi walks (m/s, any direction) and turns (rad/s). In the sim (2026-11-27) 0.16 m/s
+    // walks, but from 0.162 the reaching foot runs the ankle pitch into its -60 degree limit (and the
+    // hip roll into its 20) and the walk collapses to ~0.05 m/s; 1.0 rad/s turns, 1.2 falls
+    static constexpr float kMaxSpeed = 0.15f;
+    static constexpr float kMaxTurnRate = 1.0f;
 
     // Look at a point (body frame, m): the neck turns towards it and the head nods up or down to it,
     // within the joints' limits, at up to kHeadSpeed. lookAhead() faces forward again.
