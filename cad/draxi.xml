@@ -1,8 +1,8 @@
 <mujoco model="draxi">
-  <!-- Draxi urdf_v1, generated from draxie.step 2026-11-26. Same kinematics/masses as draxi.urdf.
+  <!-- Draxi urdf_v2, generated from draxie.step 2026-11-27 (with ankle roll). Same kinematics/masses as draxi.urdf.
        Knee crank + pushrod follow the knee through joint equalities (parallelogram, 1:1). -->
   <compiler angle="degree" meshdir="meshes"/>
-  <option timestep="0.001" integrator="implicitfast"/>
+  <option timestep="0.002" integrator="implicitfast"/>
   <default>
     <geom contype="0" conaffinity="0"/>
     <default class="visual"><geom type="mesh" group="2" density="0"/></default>
@@ -16,6 +16,14 @@
     <material name="steel" rgba="0.72 0.72 0.74 1"/>
     <material name="alu" rgba="0.8 0.81 0.83 1"/>
     <material name="battery" rgba="0.85 0.5 0.15 1"/>
+    <mesh name="ankle_L_col0" file="mjcf/ankle_L_col0.stl"/>
+    <mesh name="ankle_L_col1" file="mjcf/ankle_L_col1.stl"/>
+    <mesh name="ankle_L_printed" file="mjcf/ankle_L_printed.stl"/>
+    <mesh name="ankle_L_steel" file="mjcf/ankle_L_steel.stl"/>
+    <mesh name="ankle_R_col0" file="mjcf/ankle_R_col0.stl"/>
+    <mesh name="ankle_R_col1" file="mjcf/ankle_R_col1.stl"/>
+    <mesh name="ankle_R_printed" file="mjcf/ankle_R_printed.stl"/>
+    <mesh name="ankle_R_steel" file="mjcf/ankle_R_steel.stl"/>
     <mesh name="base_link_alu" file="mjcf/base_link_alu.stl"/>
     <mesh name="base_link_battery" file="mjcf/base_link_battery.stl"/>
     <mesh name="base_link_col0" file="mjcf/base_link_col0.stl"/>
@@ -35,17 +43,13 @@
     <mesh name="foot_L_col2" file="mjcf/foot_L_col2.stl"/>
     <mesh name="foot_L_col3" file="mjcf/foot_L_col3.stl"/>
     <mesh name="foot_L_col4" file="mjcf/foot_L_col4.stl"/>
-    <mesh name="foot_L_col5" file="mjcf/foot_L_col5.stl"/>
     <mesh name="foot_L_printed" file="mjcf/foot_L_printed.stl"/>
-    <mesh name="foot_L_steel" file="mjcf/foot_L_steel.stl"/>
     <mesh name="foot_R_col0" file="mjcf/foot_R_col0.stl"/>
     <mesh name="foot_R_col1" file="mjcf/foot_R_col1.stl"/>
     <mesh name="foot_R_col2" file="mjcf/foot_R_col2.stl"/>
     <mesh name="foot_R_col3" file="mjcf/foot_R_col3.stl"/>
     <mesh name="foot_R_col4" file="mjcf/foot_R_col4.stl"/>
-    <mesh name="foot_R_col5" file="mjcf/foot_R_col5.stl"/>
     <mesh name="foot_R_printed" file="mjcf/foot_R_printed.stl"/>
-    <mesh name="foot_R_steel" file="mjcf/foot_R_steel.stl"/>
     <mesh name="head_col0" file="mjcf/head_col0.stl"/>
     <mesh name="head_col1" file="mjcf/head_col1.stl"/>
     <mesh name="head_col2" file="mjcf/head_col2.stl"/>
@@ -201,22 +205,27 @@
               <geom class="collision" mesh="shin_L_col0"/>
               <geom class="collision" mesh="shin_L_col1"/>
               <geom class="collision" mesh="shin_L_col2"/>
-              <body name="foot_L" pos="0.1 0 0">
-                <joint name="ankle_L" axis="0 1 0" range="-60 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
-                <!-- Ankle roll: provisional, until the ankle-roll CAD is exported. After the pitch
-                     joint in the same body, so it rolls about the foot's own forward axis -->
-                <joint name="ankle_roll_L" axis="1 0 0" range="-30 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
-                <inertial pos="0.0133794 0.00120577 -0.0276265" mass="0.0844" fullinertia="8.8867e-05 1.1635e-04 1.2716e-04 -5.8610e-07 2.0082e-05 1.2102e-06"/>
-                <geom class="visual" mesh="foot_L_printed" material="printed"/>
-                <geom class="visual" mesh="foot_L_steel" material="steel"/>
-                <geom class="collision" mesh="foot_L_col0"/>
-                <geom class="collision" mesh="foot_L_col1"/>
-                <geom class="collision" mesh="foot_L_col2"/>
-                <geom class="collision" mesh="foot_L_col3"/>
-                <geom class="collision" mesh="foot_L_col4"/>
-                <geom class="collision" mesh="foot_L_col5"/>
-                <body name="sole_L" pos="0.0272 0.0007 -0.051">
-                  <site name="sole_L" size="0.005"/>
+              <body name="ankle_L" pos="0.1 0.002 0">
+                <joint name="ankle_pitch_L" axis="0 1 0" range="-60 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
+                <inertial pos="0.0167823 0.00134282 2.48627e-17" mass="0.0498" fullinertia="3.8942e-05 2.4807e-05 4.7253e-05 1.3520e-06 5.0930e-19 3.1111e-19"/>
+                <geom class="visual" mesh="ankle_L_printed" material="printed"/>
+                <geom class="visual" mesh="ankle_L_steel" material="steel"/>
+                <geom class="collision" mesh="ankle_L_col0"/>
+                <geom class="collision" mesh="ankle_L_col1"/>
+                <body name="foot_L" pos="0 0 0">
+                  <joint name="ankle_roll_L" axis="1 0 0" range="-30 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
+                  <inertial pos="0.0583388 -0.000679867 -0.00829816" mass="0.2617" fullinertia="1.6991e-04 2.5625e-04 2.0302e-04 -7.8510e-06 -3.1740e-05 7.8311e-07"/>
+                  <geom class="visual" mesh="foot_L_printed" material="printed"/>
+                  <geom class="visual" type="cylinder" size="0.0230" fromto="0.04 -0.000275 3.10862e-15 0.087 -0.000275 3.10862e-15" material="motor"/>
+                  <geom class="collision" type="cylinder" size="0.0230" fromto="0.04 -0.000275 3.10862e-15 0.087 -0.000275 3.10862e-15"/>
+                  <geom class="collision" mesh="foot_L_col0"/>
+                  <geom class="collision" mesh="foot_L_col1"/>
+                  <geom class="collision" mesh="foot_L_col2"/>
+                  <geom class="collision" mesh="foot_L_col3"/>
+                  <geom class="collision" mesh="foot_L_col4"/>
+                  <body name="sole_L" pos="0.0375 0 -0.051">
+                    <site name="sole_L" size="0.005"/>
+                  </body>
                 </body>
               </body>
             </body>
@@ -277,21 +286,27 @@
               <geom class="collision" mesh="shin_R_col0"/>
               <geom class="collision" mesh="shin_R_col1"/>
               <geom class="collision" mesh="shin_R_col2"/>
-              <body name="foot_R" pos="0.1 0 0">
-                <joint name="ankle_R" axis="0 1 0" range="-60 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
-                <!-- Ankle roll: provisional (see the left foot) -->
-                <joint name="ankle_roll_R" axis="1 0 0" range="-30 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
-                <inertial pos="0.0133794 -0.00120577 -0.0276265" mass="0.0844" fullinertia="8.8867e-05 1.1635e-04 1.2716e-04 5.8610e-07 2.0082e-05 -1.2102e-06"/>
-                <geom class="visual" mesh="foot_R_printed" material="printed"/>
-                <geom class="visual" mesh="foot_R_steel" material="steel"/>
-                <geom class="collision" mesh="foot_R_col0"/>
-                <geom class="collision" mesh="foot_R_col1"/>
-                <geom class="collision" mesh="foot_R_col2"/>
-                <geom class="collision" mesh="foot_R_col3"/>
-                <geom class="collision" mesh="foot_R_col4"/>
-                <geom class="collision" mesh="foot_R_col5"/>
-                <body name="sole_R" pos="0.0272 -0.0007 -0.051">
-                  <site name="sole_R" size="0.005"/>
+              <body name="ankle_R" pos="0.1 -0.002 0">
+                <joint name="ankle_pitch_R" axis="0 1 0" range="-60 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
+                <inertial pos="0.0167823 -0.00134282 2.48728e-17" mass="0.0498" fullinertia="3.8942e-05 2.4807e-05 4.7253e-05 -1.3520e-06 5.0931e-19 -3.1110e-19"/>
+                <geom class="visual" mesh="ankle_R_printed" material="printed"/>
+                <geom class="visual" mesh="ankle_R_steel" material="steel"/>
+                <geom class="collision" mesh="ankle_R_col0"/>
+                <geom class="collision" mesh="ankle_R_col1"/>
+                <body name="foot_R" pos="0 0 0">
+                  <joint name="ankle_roll_R" axis="1 0 0" range="-30 30" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
+                  <inertial pos="0.0583389 0.000679868 -0.00829816" mass="0.2617" fullinertia="1.6991e-04 2.5625e-04 2.0302e-04 7.8510e-06 -3.1740e-05 -7.8311e-07"/>
+                  <geom class="visual" mesh="foot_R_printed" material="printed"/>
+                  <geom class="visual" type="cylinder" size="0.0230" fromto="0.04 0.000275 3.10862e-15 0.087 0.000275 3.10862e-15" material="motor"/>
+                  <geom class="collision" type="cylinder" size="0.0230" fromto="0.04 0.000275 3.10862e-15 0.087 0.000275 3.10862e-15"/>
+                  <geom class="collision" mesh="foot_R_col0"/>
+                  <geom class="collision" mesh="foot_R_col1"/>
+                  <geom class="collision" mesh="foot_R_col2"/>
+                  <geom class="collision" mesh="foot_R_col3"/>
+                  <geom class="collision" mesh="foot_R_col4"/>
+                  <body name="sole_R" pos="0.0375 0 -0.051">
+                    <site name="sole_R" size="0.005"/>
+                  </body>
                 </body>
               </body>
             </body>
@@ -333,7 +348,7 @@
             <geom class="collision" mesh="neck_nod_col0"/>
             <body name="head" pos="0.0415 0 0">
               <joint name="head_roll" axis="1 0 0" range="-35 35" armature="0.003" damping="0.05" frictionloss="0.02" actuatorfrcrange="-5.5 5.5"/>
-              <inertial pos="0.0373608 4.1628e-05 -1.23227e-06" mass="0.5106" fullinertia="4.1980e-04 8.6887e-04 8.0760e-04 -2.4792e-08 1.3285e-08 -9.6215e-08"/>
+              <inertial pos="0.0330524 4.1628e-05 -1.23227e-06" mass="0.5106" fullinertia="4.1980e-04 7.4438e-04 6.8311e-04 -1.1637e-07 1.5996e-08 -9.6215e-08"/>
               <geom class="visual" mesh="head_printed" material="printed"/>
               <geom class="visual" mesh="head_steel" material="steel"/>
               <geom class="visual" type="cylinder" size="0.0230" fromto="4.16334e-16 -1.14492e-15 2.36753e-09 0.047 -1.14492e-15 2.36753e-09" material="motor"/>
@@ -362,13 +377,13 @@
     <motor name="hip_roll_L" joint="hip_roll_L" ctrlrange="-17 17"/>
     <motor name="hip_pitch_L" joint="hip_pitch_L" ctrlrange="-17 17"/>
     <motor name="knee_L" joint="knee_L" ctrlrange="-17 17"/>
-    <motor name="ankle_L" joint="ankle_L" ctrlrange="-5.5 5.5"/>
+    <motor name="ankle_pitch_L" joint="ankle_pitch_L" ctrlrange="-5.5 5.5"/>
     <motor name="ankle_roll_L" joint="ankle_roll_L" ctrlrange="-5.5 5.5"/>
     <motor name="hip_yaw_R" joint="hip_yaw_R" ctrlrange="-5.5 5.5"/>
     <motor name="hip_roll_R" joint="hip_roll_R" ctrlrange="-17 17"/>
     <motor name="hip_pitch_R" joint="hip_pitch_R" ctrlrange="-17 17"/>
     <motor name="knee_R" joint="knee_R" ctrlrange="-17 17"/>
-    <motor name="ankle_R" joint="ankle_R" ctrlrange="-5.5 5.5"/>
+    <motor name="ankle_pitch_R" joint="ankle_pitch_R" ctrlrange="-5.5 5.5"/>
     <motor name="ankle_roll_R" joint="ankle_roll_R" ctrlrange="-5.5 5.5"/>
     <motor name="neck_yaw" joint="neck_yaw" ctrlrange="-5.5 5.5"/>
     <motor name="neck_pitch" joint="neck_pitch" ctrlrange="-5.5 5.5"/>
@@ -380,6 +395,6 @@
   </sensor>
   <keyframe>
     <key name="cad_pose" qpos="0 0 0.2035 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"/>
-    <key name="stand" qpos="0 0 0.2235 1 0 0 0 0 0 1.0603 -0.33939 -0.7209 0 -0.33939 0.33939 0 0 1.0603 -0.33939 -0.7209 0 -0.33939 0.33939 0 0 0 0"/>
+    <key name="stand" qpos="0 0 0.2235 1 0 0 0 0 0 1.1423 -0.32964 -0.81267 0 -0.32964 0.32964 0 0 1.1423 -0.32964 -0.81267 0 -0.32964 0.32964 0 0 0 0"/>
   </keyframe>
 </mujoco>

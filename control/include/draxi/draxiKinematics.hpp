@@ -44,9 +44,9 @@ private:
 
     Scalar thighLength_;   // hip pitch axis to knee axis: -joints[3].origin.z    (0.090)
     Scalar shinLength_;    // knee to ankle:                joints[4].origin.x    (0.100)
-    Scalar kneeOutboard_;  // hip to knee, along the pitch axis: joints[3].origin.y   (+-0.044)
-    Scalar footForward_;   // ankle to sole: foot.x  (0.0272)
-    Scalar footOutboard_;  // ankle to sole: foot.y  (+-0.0007)
+    Scalar kneeOutboard_;  // hip to ankle, along the pitch axis: joints[3].origin.y + joints[4].origin.y (+-0.046)
+    Scalar footForward_;   // ankle to sole: foot.x  (0.0375)
+    Scalar footOutboard_;  // ankle to sole: foot.y  (0)
     Scalar footDown_;      // ankle to sole: foot.z  (-0.051, negative = below)
     std::array<Scalar, kLegJoints> lower_{}, upper_{};
     Scalar footYaw_ = 0, footPitch_ = 0;

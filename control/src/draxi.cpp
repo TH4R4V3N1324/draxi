@@ -49,7 +49,7 @@ RobotDefinition robot() {
     //
     // Masses: the body is base_link alone; the neck and head are an appendage (below), so the engine
     // follows their weight as the head turns. The thigh includes the knee crank and pushrod at zero
-    // knee angle. Whole robot 7.02 kg.
+    // knee angle. Whole robot 7.48 kg (urdf_v2).
     robot.bodyMass = static_cast<Scalar>(1.9598);
     robot.centreOfMass = v(-0.0196517, 0.000100607, 0.0161897);
 
@@ -69,7 +69,7 @@ RobotDefinition robot() {
     neck.joints[2].centreOfMass = v(0.00393668, -0.00172834, 9.15234e-05);
     neck.joints[3] = revolute(v(0.0415, 0, 0), v(1, 0, 0), JointId::HeadRoll);
     neck.joints[3].mass = static_cast<Scalar>(0.5106);
-    neck.joints[3].centreOfMass = v(0.0373608, 4.1628e-05, -1.23227e-06);
+    neck.joints[3].centreOfMass = v(0.0330524, 4.1628e-05, -1.23227e-06);
     neck.tip = v(0.08, 0, 0);   // the face
     neck.maxPayload = 0;
     robot.numAppendages = 1;
@@ -87,11 +87,11 @@ RobotDefinition robot() {
         def.joints[1] = revolute(v(0, 0, 0), v(1, 0, 0), hipRoll, RS02_SPEED);
         def.joints[2] = revolute(v(0, 0, 0), v(0, 1, 0), hipPitch, RS02_SPEED);
         def.joints[3] = revolute(v(0, side * 0.044, -0.090), v(0, 1, 0), knee, RS02_SPEED);
-        def.joints[4] = revolute(v(0.100, 0, 0), v(0, 1, 0), ankle, RS05_SPEED);
-        // Ankle roll, after the pitch at the same point (provisional, until the ankle-roll CAD): it
-        // keeps the sole flat when the hip rolls the leg to move the weight over a foot
+        def.joints[4] = revolute(v(0.100, side * 0.002, 0), v(0, 1, 0), ankle, RS05_SPEED);
+        // Ankle roll, after the pitch at the same point: it keeps the sole flat when the hip rolls
+        // the leg to move the weight over a foot
         def.joints[5] = revolute(v(0, 0, 0), v(1, 0, 0), ankleRoll, RS05_SPEED);
-        def.foot = v(0.0272, side * 0.0007, -0.051);  // ankle to sole
+        def.foot = v(0.0375, 0, -0.051);  // ankle to sole
         def.solver = gait_core::LegSolver::Chain;      // DraxiKinematics replaces it (GaitController)
 
         // The link each joint turns: mass (kg) and centre of mass in that joint's frame (m)
@@ -103,24 +103,30 @@ RobotDefinition robot() {
         def.joints[2].centreOfMass = v(-0.00323, side * 0.06696, -0.01343);
         def.joints[3].mass = static_cast<Scalar>(0.2632);  // shin
         def.joints[3].centreOfMass = v(0.08833, side * -0.00028, 0.00008);
-        def.joints[5].mass = static_cast<Scalar>(0.0844);  // foot (the ankle roll turns it)
-        def.joints[5].centreOfMass = v(0.01338, side * 0.00121, -0.02763);
-                    
-        const Scalar inner = static_cast<Scalar>(0.0262);  // m, the foot's inner corner (x forward, y left)
-        const Scalar outer = static_cast<Scalar>(0.0283);  // m, the foot's outer corner
+        def.joints[4].mass = static_cast<Scalar>(0.0498);  // ankle (between the pitch and roll axes)
+        def.joints[4].centreOfMass = v(0.01678, side * 0.00134, 0);
+        def.joints[5].mass = static_cast<Scalar>(0.2617);  // foot + ankle roll motor (the ankle roll turns it)
+        def.joints[5].centreOfMass = v(0.05834, side * -0.00068, -0.00830);
 
-        def.soleMin = Vec2(Scalar(-0.055), left ? -inner : -outer);
-        def.soleMax = Vec2(Scalar(0.055), left ? outer : inner);
+        // The sole's flat face around the sole point, from the foot's collision meshes (m, x forward)
+        const Scalar back = static_cast<Scalar>(0.0653);
+        const Scalar front = static_cast<Scalar>(0.0505);
+        const Scalar inner = static_cast<Scalar>(0.0281);
+        const Scalar outer = static_cast<Scalar>(0.0290);
 
-        def.stanceOffset = v(0, side * 0.0447, 0);
+        def.soleMin = Vec2(-back, left ? -inner : -outer);
+        def.soleMax = Vec2(front, left ? outer : inner);
+
+        // Hip to sole sideways: the knee (44 mm) and ankle (2 mm) offsets
+        def.stanceOffset = v(0, side * 0.046, 0);
 
         return def;
     };
 
     robot.legs[LEFT] = leg(true, JointId::HipYawL, JointId::HipRollL, JointId::HipPitchL,
-                           JointId::KneeL, JointId::AnkleL, JointId::AnkleRollL);
+                           JointId::KneeL, JointId::AnklePitchL, JointId::AnkleRollL);
     robot.legs[RIGHT] = leg(false, JointId::HipYawR, JointId::HipRollR, JointId::HipPitchR,
-                            JointId::KneeR, JointId::AnkleR, JointId::AnkleRollR);
+                            JointId::KneeR, JointId::AnklePitchR, JointId::AnkleRollR);
 
     // 4.7 mm further forward than straight under the hips (23.8 mm): with ankle roll, anywhere from
     // 27 to 30 mm walks 97-99% of the commanded distance at 0.08-0.16 m/s in the sim, where 23.8 mm

@@ -13,10 +13,11 @@ gait_core::Scalar wrap(gait_core::Scalar a) { return std::atan2(std::sin(a), std
 }  // namespace
 
 // Lengths from the same LegDefinition as robot(), so the two can't disagree. Assumes the ankle roll's
-// origin is the ankle pitch's (joints[5].origin zero).
+// origin is the ankle pitch's (joints[5].origin zero). The shin's sideways step to the ankle is along
+// the pitch axis, so it adds to the knee's and the ankle sits kneeOutboard_ out from the hip.
 DraxiKinematics::DraxiKinematics(const gait_core::LegDefinition& leg)
     : thighLength_(-leg.joints[3].origin.z()), shinLength_(leg.joints[4].origin.x()),
-      kneeOutboard_(leg.joints[3].origin.y()), footForward_(leg.foot.x()), footOutboard_(leg.foot.y()),
+      kneeOutboard_(leg.joints[3].origin.y() + leg.joints[4].origin.y()), footForward_(leg.foot.x()), footOutboard_(leg.foot.y()),
       footDown_(leg.foot.z()) {
     for (int i = 0; i < kLegJoints; ++i) { lower_[i] = leg.joints[i].lower; upper_[i] = leg.joints[i].upper; }
 }
