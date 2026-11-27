@@ -51,10 +51,14 @@ public:
     const gait_core::GaitEngine& engine() const { return engine_; }
 
     // kp = kpPerNm * maxTorque [Nm/rad], kd = kdPerNm * maxTorque [Nm·s/rad]. Twice StandController's:
-    // in the sim, kp 4 lets the legs sag behind the plan and the walk stalls or falls; 8-10 with kd
-    // 0.2-0.3 walks for a minute at 0.02 m/s, and 12 is too stiff
+    // in the sim, kp 4 lets the legs sag behind the plan and the walk stalls or falls; 7.5-11 all walk,
+    // and kd 0.35-0.45 damps the sway best (2026-11-27)
     static constexpr float kpPerNm = 9.0f;
-    static constexpr float kdPerNm = 0.25f;
+    static constexpr float kdPerNm = 0.35f;
+    // Share of the engine's feedforward torques sent to the legs. All of them overshoot (the PD is
+    // holding the same weight up): 0.8 cuts the body's tilt walking from 1.4 to 0.5 deg RMS and the
+    // sway from 25 to 21 mm; 1.2 is worse still
+    static constexpr float kTorqueScale = 0.8f;
 
     // s, how much the velocity target is smoothed. Each leg joint's MIT-mode velocity target is the
     // rate its commanded angle changes at: with a target of 0, the motor's kd term brakes every move,

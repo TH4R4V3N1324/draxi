@@ -35,10 +35,11 @@ gait_core::GaitParams GaitController::defaultParams() {
     p.preview_control = true;
     p.preview_dynamic_gaits = true;
     p.torque_output = true;
-    // Quick steps: the quicker the feet swap, the less the body has to sway to stay over them (+-30 mm
-    // at 0.16 s phases against +-55 mm at 0.3 s, about 3 steps a second). Tuned in the sim at 0.01-0.03
-    // m/s; 0.14 s phases or a 30 mm step fall. Needs the velocity targets in update() to keep up.
-    p.phase_duration = Scalar(0.16);
+    // Quick steps: the quicker the feet swap, the less the body has to sway to stay over them. With the
+    // urdf_v2 feet (sim, 2026-11-27) 0.12 s walks 0.04-0.16 m/s with 21 mm of sway (RMS, centre
+    // of mass); 0.11 s and 0.13 s don't reach 0.16 m/s, 0.16 s sways 46 mm and falls there. Needs the
+    // velocity targets in update() to keep up.
+    p.phase_duration = Scalar(0.12);
     p.min_phase_duration = Scalar(0.1);
     p.step_height = Scalar(0.025);
     // Flat floors only for now: on contact at these speeds, terrain adaptation cuts swings short and
@@ -49,6 +50,13 @@ gait_core::GaitParams GaitController::defaultParams() {
     // The soles slip round a little as the weight passes from foot to foot, turning Draxi ~23% further
     // than asked in the sim: turn feedback learns that from the IMU and takes it off (101-103% after)
     p.turn_feedback = true;
+    // No leveling while walking: the IMU correction fights the planned sway and pitches the body
+    // about (tilt 1.4 deg RMS with it, 0.5 without, and it falls at 0.16 m/s with it on the old feet)
+    p.walk_leveling = false;
+    // Balance feedback shifts the body when the capture point is pushed off: takes a 25 N push
+    // (0.1 s) walking, against 20 N without. It doesn't see pushes much smaller than the walk's own
+    // wobble, and its catching steps are capped at maxStride.
+    p.balance_feedback = true;
     return p;
 }
 
@@ -146,7 +154,7 @@ void GaitController::update(const JointStates& states, const ImuSample& imu, flo
             // swing and sway don't always check): never send the motor into its hard stop
             const JointInfo& info = kJoints[i];
             c.position = std::clamp(static_cast<float>(output.joints[leg](j)), info.minRad, info.maxRad);
-            c.torqueFF = output.hasTorques ? output.torques[leg](j) : 0.0f;
+            c.torqueFF = output.hasTorques ? kTorqueScale * static_cast<float>(output.torques[leg](j)) : 0.0f;
 
             // Velocity target: how fast the command moves, smoothed and within the joint's speed limit
             const float limit = def.joints[j].velocityLimit(params_.max_joint_speed);

@@ -117,8 +117,10 @@ RobotDefinition robot() {
         def.soleMin = Vec2(-back, left ? -inner : -outer);
         def.soleMax = Vec2(front, left ? outer : inner);
 
-        // Hip to sole sideways: the knee (44 mm) and ankle (2 mm) offsets
-        def.stanceOffset = v(0, side * 0.046, 0);
+        // Each foot 38 mm out from the middle, 8 mm in from straight under its hip (the knee's 44 mm
+        // and the ankle's 2 mm): less to sway across each step (sim, 2026-11-27). 34-38 mm
+        // walk alike; 40 mm and wider fall at 0.16 m/s. Leaves 20 mm between the soles.
+        def.stanceOffset = v(0, side * 0.038, 0);
 
         return def;
     };
@@ -128,10 +130,10 @@ RobotDefinition robot() {
     robot.legs[RIGHT] = leg(false, JointId::HipYawR, JointId::HipRollR, JointId::HipPitchR,
                             JointId::KneeR, JointId::AnklePitchR, JointId::AnkleRollR);
 
-    // 4.7 mm further forward than straight under the hips (23.8 mm): with ankle roll, anywhere from
-    // 27 to 30 mm walks 97-99% of the commanded distance at 0.08-0.16 m/s in the sim, where 23.8 mm
-    // walks backwards above about 0.1 m/s (without ankle roll it makes things worse)
-    robot.standReach    = Scalar(0.0285);
+    // The sole point 33.5 mm ahead of the hip: with the urdf_v2 feet (sim, 2026-11-27) this
+    // walks 0.04-0.16 m/s at 100-104% of the command; 31 mm falls behind at 0.16 m/s, and 36 mm
+    // sways and tilts more
+    robot.standReach    = Scalar(0.0335);
     robot.standHeight   = Scalar(-0.161);
     robot.maxStride     = Scalar(0.03);
 
